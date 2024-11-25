@@ -11,40 +11,55 @@
     android:orientation="vertical"
     tools:context=".SignUp">
 
-    <!-- Logo en haut à gauche -->
+    <!-- Logo -->
     <ImageView
         android:id="@+id/logo_signup"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/logo" />
 
     <!-- Titre de l'écran -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:padding="10dp"
-        android:text="S'inscrire"
+        android:gravity="center"
+        android:text="Créer un compte"
         android:textColor="@color/white"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Champ Nom -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:hint="Nom"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="yes" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Champ Email -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:hint="Email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
             android:id="@+id/emailInput"
-
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:importantForAccessibility="yes" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Champ Mot de Passe -->
@@ -57,32 +72,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
             android:id="@+id/passwordInput"
-
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Champ Confirmer le Mot de Passe -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:passwordToggleEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:hint="Confirmer le Mot de Passe"
             android:layout_width="match_parent"
-            android:id="@+id/confirmPasswordInput"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:importantForAccessibility="yes" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Bouton S'inscrire -->
+    <!-- Bouton Inscription -->
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -91,7 +90,7 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <!-- Lien pour se connecter -->
+    <!-- Lien vers la connexion -->
     <TextView
         android:id="@+id/loginLink"
         android:layout_width="wrap_content"
@@ -99,12 +98,12 @@
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:gravity="center"
-        android:text="Déjà un compte ? Connectez-vous"
+        android:text="Vous avez déjà un compte ? Connectez-vous"
         android:textColor="@color/blue"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <!-- ProgressBar pour le chargement -->
+    <!-- ProgressBar -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

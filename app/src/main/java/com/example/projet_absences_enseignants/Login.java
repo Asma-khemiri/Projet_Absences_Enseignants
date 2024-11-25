@@ -2,44 +2,55 @@ package com.example.projet_absences_enseignants;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.projet_absences_enseignants.MainActivity;
+import com.example.projet_absences_enseignants.R;
+import com.example.projet_absences_enseignants.SignUp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private TextInputEditText emailInput, passwordInput;
+    private EditText emailInput, passwordInput;
     private Button loginButton;
-    private TextView signUpLink;
-    private FirebaseAuth firebaseAuth;
+    private TextView signupLink;
+    private ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialiser FirebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        // Lier les éléments de l'interface utilisateur
+        // Initialiser les vues
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
-        signUpLink = findViewById(R.id.signUpLink);
+        signupLink = findViewById(R.id.signupLink);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Ajouter un listener au bouton Connexion
-        loginButton.setOnClickListener(view -> loginUser());
+        // Initialiser Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
-        // Ajouter un listener au lien d'inscription
-        signUpLink.setOnClickListener(view -> {
-            // Rediriger vers l'activité d'inscription
+        // Rediriger vers la page d'inscription
+        signupLink.setOnClickListener(v -> {
+            // Rediriger vers SignUpActivity
             startActivity(new Intent(Login.this, SignUp.class));
+        });
+
+
+        // Action pour le bouton de connexion
+        loginButton.setOnClickListener(v -> {
+            loginUser();
         });
     }
 
@@ -47,29 +58,26 @@ public class Login extends AppCompatActivity {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email)) {
-            emailInput.setError("Veuillez entrer un email !");
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(Login.this, "Veuillez entrer tous les champs", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(password)) {
-            passwordInput.setError("Veuillez entrer un mot de passe !");
-            return;
-        }
+        progressBar.setVisibility(View.VISIBLE);
 
-        // Se connecter avec FirebaseAuth
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
                         // Connexion réussie
-                        Toast.makeText(Login.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
-
-                        // Rediriger vers la page principale de l'application
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        // Rediriger selon le rôle de l'utilisateur
+                        // Ex: rediriger vers une page d'accueil
                         startActivity(new Intent(Login.this, MainActivity.class));
                         finish();
                     } else {
-                        // Connexion échouée
-                        Toast.makeText(Login.this, "Échec de la connexion : " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        // Échec de la connexion
+                        Toast.makeText(Login.this, "Échec de la connexion", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

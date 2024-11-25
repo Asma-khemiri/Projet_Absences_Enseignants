@@ -2,90 +2,78 @@ package com.example.projet_absences_enseignants;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.projet_absences_enseignants.Login;
+import com.example.projet_absences_enseignants.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp extends AppCompatActivity {
 
-    private TextInputEditText emailInput, passwordInput, confirmPasswordInput;
-    private Button signUpButton;
-    private FirebaseAuth firebaseAuth;
+    private EditText nameInput, emailInput, passwordInput;
+    private Button signupButton;
+    private TextView loginLink;
+    private ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up); // Assurez-vous que le nom du fichier XML est correct
 
-        // Initialiser FirebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        // Lier les éléments de l'interface utilisateur
+        // Initialiser les vues
+        nameInput = findViewById(R.id.nameInput);
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
-        confirmPasswordInput = findViewById(R.id.confirmPasswordInput); // Ajout pour confirmer le mot de passe
-        signUpButton = findViewById(R.id.signUpButton);
+        signupButton = findViewById(R.id.signupButton);
+        loginLink = findViewById(R.id.loginLink);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Ajouter un listener au bouton Inscription
-        signUpButton.setOnClickListener(view -> signUpUser());
+        // Initialiser Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Rediriger vers la page de connexion lorsque l'utilisateur clique sur le lien
+        loginLink.setOnClickListener(v -> {
+            startActivity(new Intent(SignUp.this, Login.class)); // Rediriger vers LoginActivity
+        });
+
+        // Action pour le bouton d'inscription
+        signupButton.setOnClickListener(v -> {
+            createUser();
+        });
     }
 
-    private void signUpUser() {
-        // Récupérer les données saisies par l'utilisateur
+    private void createUser() {
+        String name = nameInput.getText().toString().trim();
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
-        String confirmPassword = confirmPasswordInput.getText().toString().trim(); // Confirmation du mot de passe
 
-        // Vérification des champs
-        if (TextUtils.isEmpty(email)) {
-            emailInput.setError("Veuillez entrer un email !");
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(SignUp.this, "Veuillez entrer tous les champs", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(password)) {
-            passwordInput.setError("Veuillez entrer un mot de passe !");
-            return;
-        }
+        progressBar.setVisibility(View.VISIBLE);
 
-        if (password.length() < 6) {
-            passwordInput.setError("Le mot de passe doit contenir au moins 6 caractères !");
-            return;
-        }
-
-        if (TextUtils.isEmpty(confirmPassword)) {
-            confirmPasswordInput.setError("Veuillez confirmer votre mot de passe !");
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            confirmPasswordInput.setError("Les mots de passe ne correspondent pas !");
-            return;
-        }
-
-        // Afficher un message avant la création du compte
-        signUpButton.setEnabled(false); // Désactiver le bouton pour éviter plusieurs soumissions
-        Toast.makeText(SignUp.this, "Création du compte en cours...", Toast.LENGTH_SHORT).show();
-
-        // Inscription avec FirebaseAuth
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    signUpButton.setEnabled(true); // Réactiver le bouton après l'opération
-
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        // Succès de l'inscription
-                        Toast.makeText(SignUp.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
-
-                        // Rediriger vers une autre activité (par exemple, la page de connexion)
-                        startActivity(new Intent(SignUp.this, Login.class));
+                        // Inscription réussie
+                        Toast.makeText(SignUp.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignUp.this, Login.class)); // Retourner vers LoginActivity
                         finish();
                     } else {
                         // Échec de l'inscription
-                        Toast.makeText(SignUp.this, "Échec de l'inscription : " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignUp.this, "Échec de l'inscription", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
