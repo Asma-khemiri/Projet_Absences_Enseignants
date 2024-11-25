@@ -5,5 +5,7 @@
     <string-array name="role_array">
         <item>Admin</item>
         <item>Enseignant</item>
+        <item>Agent de Suivi</item>
+
     </string-array>
 </resources>
