@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Projet_Absences_Enseignants</string>
+
+    <!-- Tableau des rôles uniquement Admin et Enseignant -->
+    <string-array name="role_array">
+        <item>Admin</item>
+        <item>Enseignant</item>
+    </string-array>
 </resources>
