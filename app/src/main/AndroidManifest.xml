@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,24 +18,21 @@
         <!-- Activité d'inscription -->
         <activity
             android:name=".SignUp"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"
-            android:exported="false" />
-
-        <!-- Activité de connexion (c'est cette activité qui sera lancée au démarrage) -->
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" /> <!-- Activité de connexion (c'est cette activité qui sera lancée au démarrage) -->
         <activity
             android:name=".Login"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-
-        <!-- Autre activité (par exemple, MainActivity) -->
+        </activity> <!-- Autre activité (par exemple, MainActivity) -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
     </application>
+
 </manifest>

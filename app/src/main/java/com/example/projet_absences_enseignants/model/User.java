@@ -1,4 +1,4 @@
-package com.example.projet_absences_enseignants;
+package com.example.projet_absences_enseignants.model;
 
 public class User {
     private String name;
