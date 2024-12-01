@@ -9,7 +9,7 @@
     android:background="@drawable/screen"
     android:padding="40dp"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".view.Login">
 
     <!-- Logo -->
     <ImageView

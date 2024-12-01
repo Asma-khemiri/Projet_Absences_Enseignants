@@ -1,4 +1,4 @@
-/*package com.example.projet_absences_enseignants.view;
+package com.example.projet_absences_enseignants.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,4 +76,3 @@ public class Login extends AppCompatActivity {
         finish(); // Terminer l'activité Login
     }
 }
-*/

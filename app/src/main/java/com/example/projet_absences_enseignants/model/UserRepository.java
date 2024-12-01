@@ -1,4 +1,4 @@
-/*package com.example.projet_absences_enseignants.model;
+package com.example.projet_absences_enseignants.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,4 +33,3 @@ public class UserRepository {
         void onFailure(String error);
     }
 }
-*/

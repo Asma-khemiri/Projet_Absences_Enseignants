@@ -1,4 +1,4 @@
-/*package com.example.projet_absences_enseignants.view;
+package com.example.projet_absences_enseignants.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet_absences_enseignants.R;
-import com.example.projet_absences_enseignants.model.User;
 import com.example.projet_absences_enseignants.viewmodel.SignUpViewModel;
 
 public class SignUp extends AppCompatActivity {
@@ -53,6 +52,7 @@ public class SignUp extends AppCompatActivity {
 
         // Observer les messages de succès et d'erreur
         signUpViewModel.getSuccessMessage().observe(this, message -> {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SignUp.this, Login.class));
             finish();
@@ -82,11 +82,21 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
+        // Vérification du format de l'email
+        if (!isValidEmail(email)) {
+            Toast.makeText(SignUp.this, "L'email n'est pas valide", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Affichage de la ProgressBar
         progressBar.setVisibility(View.VISIBLE);
 
         // Demander au ViewModel de créer l'utilisateur
         signUpViewModel.createUser(name, email, password, role);
     }
+
+    // Fonction pour vérifier si l'email est valide
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 }
-*/

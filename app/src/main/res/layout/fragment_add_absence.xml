@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/screen"
+    tools:context=".view.AddAbsenceFragment">
+
+    <!-- Titre -->
+<TextView
+android:id="@+id/tvAddAbsenceTitle"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Ajouter une Absence"
+android:textSize="24sp"
+android:textColor="#333"
+android:layout_marginBottom="24dp"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:textStyle="bold"/>
+
+    <!-- Date -->
+<TextView
+android:id="@+id/tvDate"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Date de l'absence"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/tvAddAbsenceTitle"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etDate"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="Sélectionner la date"
+android:inputType="date"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvDate"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- Heure -->
+<TextView
+android:id="@+id/tvHeure"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Heure de l'absence"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/etDate"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etHeure"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="HH:MM"
+android:inputType="time"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvHeure"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- Salle -->
+<TextView
+android:id="@+id/tvSalle"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Salle"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/etHeure"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etSalle"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="Salle"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvSalle"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- Classe -->
+<TextView
+android:id="@+id/tvClasse"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Classe"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/etSalle"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etClasse"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="Classe"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvClasse"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- Nom de l'enseignement -->
+<TextView
+android:id="@+id/tvEnseignement"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Nom de l'enseignement"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/etClasse"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etEnseignement"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="Nom de l'enseignement"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvEnseignement"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- ID Agent -->
+<TextView
+android:id="@+id/tvAgent"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="ID de l'agent de suivi"
+android:textColor="#333"
+android:textSize="16sp"
+app:layout_constraintTop_toBottomOf="@id/etEnseignement"
+app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"/>
+
+<androidx.appcompat.widget.AppCompatEditText
+android:id="@+id/etAgent"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:hint="ID de l'agent"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/tvAgent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:padding="16dp"
+android:textColor="#333"/>
+
+    <!-- Bouton Enregistrer -->
+<Button
+android:id="@+id/btnSaveAbsence"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:text="Enregistrer l'absence"
+android:textColor="#fff"
+android:backgroundTint="@color/blue"
+app:layout_constraintTop_toBottomOf="@id/etAgent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="24dp"
+android:padding="16dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

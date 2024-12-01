@@ -1,7 +1,6 @@
-/*package com.example.projet_absences_enseignants.viewmodel;
+package com.example.projet_absences_enseignants.viewmodel;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -41,12 +40,16 @@ public class SignUpViewModel extends AndroidViewModel {
                         User user = new User(name, email, role);
                         db.collection("users").document(userId)
                                 .set(user)
-                                .addOnSuccessListener(aVoid -> successMessage.setValue("Inscription réussie"))
-                                .addOnFailureListener(e -> errorMessage.setValue("Erreur lors de l'ajout du rôle"));
+                                .addOnSuccessListener(aVoid -> {
+                                    successMessage.setValue("Inscription réussie");
+                                })
+                                .addOnFailureListener(e -> {
+                                    errorMessage.setValue("Erreur lors de l'ajout du rôle utilisateur.");
+                                });
                     } else {
-                        errorMessage.setValue("Échec de l'inscription");
+                        String errorMsg = task.getException() != null ? task.getException().getMessage() : "Échec de l'inscription";
+                        errorMessage.setValue(errorMsg); // Affiche un message d'erreur plus détaillé
                     }
                 });
     }
 }
-*/
