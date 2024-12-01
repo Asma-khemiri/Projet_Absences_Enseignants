@@ -48,7 +48,7 @@ public class SignUpViewModel extends AndroidViewModel {
                                 });
                     } else {
                         String errorMsg = task.getException() != null ? task.getException().getMessage() : "Échec de l'inscription";
-                        errorMessage.setValue(errorMsg); // Affiche un message d'erreur plus détaillé
+                        errorMessage.setValue(errorMsg);
                     }
                 });
     }

@@ -5,14 +5,12 @@ public class User {
     private String email;
     private String role;
 
-    // Constructeur
     public User(String name, String email, String role) {
         this.name = name;
         this.email = email;
         this.role = role;
     }
 
-    // Getters
     public String getName() {
         return name;
     }
@@ -25,7 +23,6 @@ public class User {
         return role;
     }
 
-    // Setters (si nécessaire)
     public void setName(String name) {
         this.name = name;
     }

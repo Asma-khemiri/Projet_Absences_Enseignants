@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity {
         signupLink = findViewById(R.id.signupLink);
         progressBar = findViewById(R.id.progressBar);
 
-        // Initialisation du ViewModel
+        // Initialisaation du ViewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         // Lien pour l'inscription
