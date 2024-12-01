@@ -35,7 +35,7 @@ public class AddAbsenceViewModel extends AndroidViewModel {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             String agentID = user.getUid();
-            Absence absence = new Absence(date, heure, classe, enseignement, statut, agentID);
+            Absence absence = new Absence(date, heure, classe, enseignement, statut, agentID,agentID);
 
             db.collection("absences")
                     .add(absence)

@@ -7,6 +7,7 @@ public class Absence {
     private String enseignement;
     private String statut;
     private String agentID;
+    private String absenceID;
 
     // Constructeur sans argument (nécessaire pour Firebase)
     public Absence() {
@@ -14,18 +15,27 @@ public class Absence {
     }
 
     // Constructeur avec paramètres
-    public Absence(String date, String heure, String classe, String enseignement, String statut, String agentID) {
+    public Absence(String date, String heure, String classe, String enseignement, String statut, String agentID,String absenceID) {
         this.date = date;
         this.heure = heure;
         this.classe = classe;
         this.enseignement = enseignement;
         this.statut = statut;
         this.agentID = agentID;
+        this.absenceID=absenceID;
+
     }
 
     // Getters et setters
     public String getDate() {
         return date;
+    }
+    // Getters et setters
+    public String getAbsenceID() {
+        return absenceID;
+    }
+    public void setAbsenceID(String absenceID) {
+        this.absenceID = absenceID;
     }
 
     public void setDate(String date) {

@@ -52,6 +52,16 @@
             android:text="Classe"
             android:textSize="14sp"/>
 
+        <Button
+            android:id="@+id/btnDeleteAbsence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="end"
+            android:text="Supprimer"
+            android:backgroundTint="@color/blue"
+
+            />
 
 
     </LinearLayout>

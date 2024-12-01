@@ -19,7 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionAbsenceAgentFragment extends Fragment {
+public class GestionAbsenceAgentFragment extends Fragment implements AbsenceAdapter.OnItemClickListener, AbsenceAdapter.OnDeleteClickListener {
 
     private RecyclerView recyclerView;
     private AbsenceAdapter absenceAdapter;
@@ -38,8 +38,8 @@ public class GestionAbsenceAgentFragment extends Fragment {
         // Initialiser la liste des absences
         absenceList = new ArrayList<>();
 
-        // Initialiser l'adaptateur avec une liste vide au départ
-        absenceAdapter = new AbsenceAdapter(absenceList);
+        // Initialiser l'adaptateur avec l'écouteur de suppression
+        absenceAdapter = new AbsenceAdapter(absenceList, this, this);
         recyclerView.setAdapter(absenceAdapter);
 
         // Appeler la méthode pour récupérer les absences depuis Firebase
@@ -63,6 +63,7 @@ public class GestionAbsenceAgentFragment extends Fragment {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Convertir chaque document en objet Absence
                             Absence absence = document.toObject(Absence.class);
+                            absence.setAbsenceID(document.getId());  // Assurez-vous d'avoir un ID pour chaque absence
                             absenceList.add(absence);  // Ajouter l'absence à la liste
                             Log.d("Firestore", "Absence: " + absence.getDate());  // Log pour vérifier les données
                         }
@@ -77,5 +78,30 @@ public class GestionAbsenceAgentFragment extends Fragment {
                         Log.e("Firestore", "Erreur lors de la récupération des données : ", task.getException());
                     }
                 });
+    }
+
+    // Implémentation de l'interface OnDeleteClickListener pour supprimer l'absence
+    @Override
+    public void onDeleteClick(Absence absence) {
+        // Supprimer l'absence de la liste locale
+        absenceList.remove(absence);
+        absenceAdapter.notifyDataSetChanged();  // Mettre à jour la RecyclerView
+
+        // Supprimer l'absence de Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("absences").document(absence.getAbsenceID())  // Utiliser l'ID de l'absence
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "Absence supprimée avec succès");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Erreur lors de la suppression de l'absence : ", e);
+                });
+    }
+
+    // Implémentation de l'interface OnItemClickListener (si besoin)
+    @Override
+    public void onItemClick(Absence absence) {
+        // Gérer l'événement de clic sur un item, si nécessaire
     }
 }
