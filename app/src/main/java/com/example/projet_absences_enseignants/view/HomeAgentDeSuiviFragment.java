@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet_absences_enseignants.EmploiDuTempsAgentFragment;
-import com.example.projet_absences_enseignants.GestionAbsencesAgentFragment;
 import com.example.projet_absences_enseignants.R;
 import com.example.projet_absences_enseignants.RapportsAgentFragment;
 import com.example.projet_absences_enseignants.viewmodel.AgentViewModel;
@@ -63,7 +62,7 @@ public class HomeAgentDeSuiviFragment extends Fragment {
                 fragment = new AddAbsenceFragment();
                 break;
             case "manage_absences":
-                fragment = new GestionAbsencesAgentFragment();
+                fragment = new GestionAbsenceAgentFragment();
                 break;
             case "calendar":
                 fragment = new EmploiDuTempsAgentFragment();

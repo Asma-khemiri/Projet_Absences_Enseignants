@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="8dp"
+    tools:context=".view.AbsenceAdapter"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="25dp"
+
+      >
+
+        <TextView
+            android:id="@+id/tvEnseignement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enseignement"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvJustification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Justification"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvHeure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Heure"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvClasse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Classe"
+            android:textSize="14sp"/>
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
