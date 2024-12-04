@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -15,21 +18,17 @@
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
 
-        <!-- Activité d'inscription -->
-        <activity
-            android:name="com.example.projet_absences_enseignants.view.SignUp"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar" /> <!-- Activité de connexion (c'est cette activité qui sera lancée au démarrage) -->
         <activity
             android:name="com.example.projet_absences_enseignants.view.Login"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Autre activité (par exemple, MainActivity) -->
+        </activity>
+
+        <!-- Autre activité (par exemple, MainActivity) -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />

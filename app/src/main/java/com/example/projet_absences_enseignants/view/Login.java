@@ -33,16 +33,10 @@ public class Login extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
-        signupLink = findViewById(R.id.signupLink);
         progressBar = findViewById(R.id.progressBar);
 
         // Initialisaation du ViewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
-        // Lien pour l'inscription
-        signupLink.setOnClickListener(v -> {
-            startActivity(new Intent(Login.this, SignUp.class)); // Redirige vers SignUpActivity
-        });
 
         // Action pour le bouton de connexion
         loginButton.setOnClickListener(v -> {

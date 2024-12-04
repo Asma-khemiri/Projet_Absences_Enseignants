@@ -1,73 +1,78 @@
 package com.example.projet_absences_enseignants.view;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet_absences_enseignants.R;
-import com.example.projet_absences_enseignants.viewmodel.SignUpViewModel;
+import com.example.projet_absences_enseignants.viewmodel.AddUserViewModel;
 
-public class SignUp extends AppCompatActivity {
+public class AddUserFragment extends Fragment {
 
     private EditText nameInput, emailInput, passwordInput;
     private Button signupButton;
-    private TextView loginLink;
     private ProgressBar progressBar;
     private Spinner roleSpinner;
 
-    private SignUpViewModel signUpViewModel;
+    private AddUserViewModel addUserViewModel;
+
+    public AddUserFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_add_user, container, false);
 
         // Initialisation des vues
-        nameInput = findViewById(R.id.nameInput);
-        emailInput = findViewById(R.id.emailInput);
-        passwordInput = findViewById(R.id.passwordInput);
-        signupButton = findViewById(R.id.signupButton);
-        loginLink = findViewById(R.id.loginLink);
-        progressBar = findViewById(R.id.progressBar);
-        roleSpinner = findViewById(R.id.roleSpinner);
+        nameInput = view.findViewById(R.id.nameInput);
+        emailInput = view.findViewById(R.id.emailInput);
+        passwordInput = view.findViewById(R.id.passwordInput);
+        signupButton = view.findViewById(R.id.signupButton);
+        progressBar = view.findViewById(R.id.progressBar);
+        roleSpinner = view.findViewById(R.id.roleSpinner);
 
         // Initialisation du ViewModel
-        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+        addUserViewModel = new ViewModelProvider(this).get(AddUserViewModel.class);
 
         // Remplir le Spinner avec les rôles
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.role_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleSpinner.setAdapter(adapter);
 
         // Observer les messages de succès et d'erreur
-        signUpViewModel.getSuccessMessage().observe(this, message -> {
+        addUserViewModel.getSuccessMessage().observe(getViewLifecycleOwner(), message -> {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(SignUp.this, Login.class));
-            finish();
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            // Naviguer vers la page de connexion ou une autre page après l'ajout de l'utilisateur
         });
 
-        signUpViewModel.getErrorMessage().observe(this, message -> {
+        addUserViewModel.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         });
 
-        // Redirection vers la page de connexion
-        loginLink.setOnClickListener(v -> startActivity(new Intent(SignUp.this, Login.class)));
+
 
         // Action pour le bouton d'inscription
         signupButton.setOnClickListener(v -> createUser());
+
+        return view;
     }
 
     private void createUser() {
@@ -78,13 +83,13 @@ public class SignUp extends AppCompatActivity {
 
         // Vérification que tous les champs sont remplis
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(SignUp.this, "Veuillez entrer tous les champs", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Veuillez entrer tous les champs", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Vérification du format de l'email
         if (!isValidEmail(email)) {
-            Toast.makeText(SignUp.this, "L'email n'est pas valide", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "L'email n'est pas valide", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -92,7 +97,7 @@ public class SignUp extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         // Demander au ViewModel de créer l'utilisateur
-        signUpViewModel.createUser(name, email, password, role);
+        addUserViewModel.addUser(name, email, password, role);
     }
 
     // Fonction pour vérifier si l'email est valide

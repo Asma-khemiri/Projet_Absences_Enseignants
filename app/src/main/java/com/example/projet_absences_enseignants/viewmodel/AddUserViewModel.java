@@ -9,14 +9,14 @@ import com.example.projet_absences_enseignants.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SignUpViewModel extends AndroidViewModel {
+public class AddUserViewModel extends AndroidViewModel {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private MutableLiveData<String> successMessage;
     private MutableLiveData<String> errorMessage;
 
-    public SignUpViewModel(Application application) {
+    public AddUserViewModel(Application application) {
         super(application);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -32,7 +32,7 @@ public class SignUpViewModel extends AndroidViewModel {
         return errorMessage;
     }
 
-    public void createUser(String name, String email, String password, String role) {
+    public void addUser(String name, String email, String password, String role) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -41,13 +41,13 @@ public class SignUpViewModel extends AndroidViewModel {
                         db.collection("users").document(userId)
                                 .set(user)
                                 .addOnSuccessListener(aVoid -> {
-                                    successMessage.setValue("Inscription réussie");
+                                    successMessage.setValue("Utilisateur ajouté avec succès");
                                 })
                                 .addOnFailureListener(e -> {
-                                    errorMessage.setValue("Erreur lors de l'ajout du rôle utilisateur.");
+                                    errorMessage.setValue("Erreur lors de l'ajout de l'utilisateur.");
                                 });
                     } else {
-                        String errorMsg = task.getException() != null ? task.getException().getMessage() : "Échec de l'inscription";
+                        String errorMsg = task.getException() != null ? task.getException().getMessage() : "Échec de l'ajout de l'utilisateur";
                         errorMessage.setValue(errorMsg);
                     }
                 });

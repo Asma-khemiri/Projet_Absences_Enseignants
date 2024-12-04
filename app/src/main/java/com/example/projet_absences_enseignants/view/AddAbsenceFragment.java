@@ -23,13 +23,10 @@ public class AddAbsenceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Initialiser le ViewModel
         addAbsenceViewModel = new ViewModelProvider(this).get(AddAbsenceViewModel.class);
 
-        // Initialiser la vue
         View root = inflater.inflate(R.layout.fragment_add_absence, container, false);
 
-        // Initialiser les vues des champs de texte et du spinner
         etDate = root.findViewById(R.id.etDate);
         etHeure = root.findViewById(R.id.etHeure);
         etClasse = root.findViewById(R.id.etClasse);
@@ -45,7 +42,6 @@ public class AddAbsenceFragment extends Fragment {
         adapterJustification.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerJustification.setAdapter(adapterJustification);
 
-        // Initialiser le bouton pour sauvegarder l'absence
         btnSaveAbsence = root.findViewById(R.id.btnSaveAbsence);
         btnSaveAbsence.setOnClickListener(v -> {
             // Récupérer les valeurs des champs
@@ -65,9 +61,7 @@ public class AddAbsenceFragment extends Fragment {
             addAbsenceViewModel.saveAbsence(date, heure, classe, enseignement, justification);
         });
 
-        // Observer les messages Toast du ViewModel
         addAbsenceViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
-            // Afficher le Toast
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         });
 

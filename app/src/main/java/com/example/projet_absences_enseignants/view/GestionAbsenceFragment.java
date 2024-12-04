@@ -19,7 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionAbsenceAgentFragment extends Fragment implements AbsenceAdapter.OnItemClickListener, AbsenceAdapter.OnDeleteClickListener {
+public class GestionAbsenceFragment extends Fragment implements AbsenceAdapter.OnItemClickListener, AbsenceAdapter.OnDeleteClickListener {
 
     private RecyclerView recyclerView;
     private AbsenceAdapter absenceAdapter;
@@ -29,7 +29,7 @@ public class GestionAbsenceAgentFragment extends Fragment implements AbsenceAdap
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_gestion_absence_agent, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_gestion_absence, container, false);
 
         // Initialiser la RecyclerView
         recyclerView = rootView.findViewById(R.id.recyclerView);
@@ -63,24 +63,22 @@ public class GestionAbsenceAgentFragment extends Fragment implements AbsenceAdap
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Convertir chaque document en objet Absence
                             Absence absence = document.toObject(Absence.class);
-                            absence.setAbsenceID(document.getId());  // Assurez-vous d'avoir un ID pour chaque absence
-                            absenceList.add(absence);  // Ajouter l'absence à la liste
-                            Log.d("Firestore", "Absence: " + absence.getDate());  // Log pour vérifier les données
+                            absence.setAbsenceID(document.getId());
+                            absenceList.add(absence);
+                            Log.d("Firestore", "Absence: " + absence.getDate());
                         }
 
                         if (absenceList.isEmpty()) {
                             Log.d("Firestore", "Aucune donnée récupérée");
                         }
 
-                        // Mettre à jour l'adaptateur après la récupération des données
-                        absenceAdapter.notifyDataSetChanged();  // Notifier l'adaptateur que les données ont changé
+                        absenceAdapter.notifyDataSetChanged();
                     } else {
                         Log.e("Firestore", "Erreur lors de la récupération des données : ", task.getException());
                     }
                 });
     }
 
-    // Implémentation de l'interface OnDeleteClickListener pour supprimer l'absence
     @Override
     public void onDeleteClick(Absence absence) {
         // Supprimer l'absence de la liste locale

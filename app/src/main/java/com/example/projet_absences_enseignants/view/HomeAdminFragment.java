@@ -11,11 +11,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.projet_absences_enseignants.EmploiDuTempsAgentFragment;
 import com.example.projet_absences_enseignants.R;
 import com.example.projet_absences_enseignants.viewmodel.AgentViewModel;
 
-public class HomeAgentDeSuiviFragment extends Fragment {
+public class HomeAdminFragment extends Fragment {
 
     private AgentViewModel agentViewModel;
     private CardView cardHome, cardAddAbsence, cardGAbsence, cardCalendar, cardRapport;
@@ -24,7 +23,7 @@ public class HomeAgentDeSuiviFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Charger le layout du fragment
-        View view = inflater.inflate(R.layout.fragment_home_agent_de_suivi, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_admin, container, false);
 
         // Initialiser les CardViews
         cardHome = view.findViewById(R.id.cardHome);
@@ -55,16 +54,16 @@ public class HomeAgentDeSuiviFragment extends Fragment {
 
         switch (destination) {
             case "home":
-                fragment = new HomeAgentDeSuiviFragment();
+                fragment = new HomeAdminFragment();
                 break;
             case "add_absence":
-                fragment = new AddAbsenceFragment();
+                fragment = new AddUserFragment();
                 break;
             case "manage_absences":
                 fragment = new GestionAbsenceFragment();
                 break;
             case "calendar":
-                fragment = new EmploiDuTempsAgentFragment();
+                fragment = new EmploiDuTempsFragment();
                 break;
             case "report":
                 fragment = new RapportAbsenceFragment();

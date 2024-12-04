@@ -40,9 +40,9 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
     public void onBindViewHolder(AbsenceViewHolder holder, int position) {
         Absence absence = absenceList.get(position);
 
-        SpannableString enseignementText = new SpannableString("Enseignement: " + absence.getEnseignement());
-        enseignementText.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Enseignement: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        enseignementText.setSpan(new ForegroundColorSpan(Color.BLACK), "Enseignement: ".length(), enseignementText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString enseignementText = new SpannableString("Enseignant: " + absence.getEnseignement());
+        enseignementText.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Enseignant: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        enseignementText.setSpan(new ForegroundColorSpan(Color.BLACK), "Enseignant ".length(), enseignementText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvEnseignement.setText(enseignementText);
 
         SpannableString justificationText = new SpannableString("Justification: " + absence.getStatut());
@@ -92,12 +92,10 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
         }
     }
 
-    // Interface pour les clics sur les éléments
     public interface OnItemClickListener {
         void onItemClick(Absence absence);
     }
 
-    // Interface pour les clics sur le bouton de suppression
     public interface OnDeleteClickListener {
         void onDeleteClick(Absence absence);
     }

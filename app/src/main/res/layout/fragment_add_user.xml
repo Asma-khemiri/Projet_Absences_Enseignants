@@ -9,7 +9,7 @@
     android:background="@drawable/screen"
     android:padding="40dp"
     android:orientation="vertical"
-    tools:context=".view.SignUp">
+    tools:context=".view.AddUserFragment">
 
     <!-- Logo -->
     <ImageView
@@ -86,7 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp" />
 
-
     <!-- Bouton Inscription -->
     <Button
         android:id="@+id/signupButton"
@@ -98,18 +97,6 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <!-- Lien vers la connexion -->
-    <TextView
-        android:id="@+id/loginLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="Vous avez déjà un compte ? Connectez-vous"
-        android:textColor="@color/blue"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
     <!-- ProgressBar -->
     <ProgressBar
