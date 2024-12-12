@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:padding="50dp"
     android:background="@drawable/screen"
-    tools:context=".view.AddAbsenceFragment">
+    tools:context=".view.AddReclamationFragment">
 
     <!-- Titre -->
     <TextView
-        android:id="@+id/tvAddAbsenceTitle"
+        android:id="@+id/tvAddReclamationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ajouter une Absence"
+        android:text="Ajouter une Réclamation d'Absence"
         android:textSize="24sp"
         android:textColor="#333"
         android:layout_marginBottom="24dp"
@@ -24,21 +24,21 @@
 
     <!-- Date -->
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/tvDateReclamation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date de l'absence"
         android:textColor="#333"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvAddAbsenceTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvAddReclamationTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="80dp" />
 
     <EditText
-        android:id="@+id/etDate"
+        android:id="@+id/etDateReclamation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvDate"
+        app:layout_constraintTop_toBottomOf="@id/tvDateReclamation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
@@ -47,106 +47,62 @@
 
     <!-- Heure -->
     <TextView
-        android:id="@+id/tvHeure"
+        android:id="@+id/tvHeureReclamation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heure de l'absence"
         android:textColor="#333"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etDate"
+        app:layout_constraintTop_toBottomOf="@id/etDateReclamation"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp" />
 
     <EditText
-        android:id="@+id/etHeure"
+        android:id="@+id/etHeureReclamation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvHeure"
+        app:layout_constraintTop_toBottomOf="@id/tvHeureReclamation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:hint="HH:MM"
         android:inputType="time" />
 
-    <!-- Classe -->
+    <!-- Justification -->
     <TextView
-        android:id="@+id/tvClasse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Classe"
-        android:textColor="#333"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etHeure"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/etClasse"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvClasse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:hint=" Classe " />
-
-    <!-- Enseignement -->
-    <TextView
-        android:id="@+id/tvEnseignement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enseignant"
-        android:textColor="#333"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etClasse"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/etEnseignement"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvEnseignement"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:hint="Enseignant" />
-
-    <!-- Spinner Justification -->
-    <TextView
-        android:id="@+id/tvJustification"
+        android:id="@+id/tvJustificationReclamation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Justification"
         android:textColor="#333"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etEnseignement"
+        app:layout_constraintTop_toBottomOf="@id/etHeureReclamation"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp" />
 
-    <Spinner
-        android:id="@+id/spinnerJustification"
+    <EditText
+        android:id="@+id/etJustificationReclamation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvJustification"
+        app:layout_constraintTop_toBottomOf="@id/tvJustificationReclamation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:hint="Votre réclamation pour l'absence"
+        android:inputType="textMultiLine" />
 
-    <!-- Bouton Enregistrer -->
+    <!-- Bouton Enregistrer Réclamation -->
     <Button
-        android:id="@+id/btnSaveAbsence"
+        android:id="@+id/btnSaveReclamation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/blue"
-        android:text="Enregistrer l'absence"
+        android:text="Enregistrer la réclamation"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="@color/blue"
-        app:layout_constraintTop_toBottomOf="@id/spinnerJustification"
+        app:layout_constraintTop_toBottomOf="@id/etJustificationReclamation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-    />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

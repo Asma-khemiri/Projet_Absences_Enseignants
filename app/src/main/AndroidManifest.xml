@@ -7,6 +7,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,10 +29,20 @@
             </intent-filter>
         </activity>
 
-        <!-- Autre activité (par exemple, MainActivity) -->
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/CustomAppTheme" />
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
+
+
 
 </manifest>

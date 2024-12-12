@@ -22,12 +22,13 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
     private List<Absence> absenceList;
     private OnItemClickListener listener;
     private OnDeleteClickListener deleteListener;
+    private OnModifyClickListener modifyListener;  // Nouveau listener pour la modification
 
-    // Constructeur avec un écouteur de suppression
-    public AbsenceAdapter(List<Absence> absenceList, OnItemClickListener listener, OnDeleteClickListener deleteListener) {
+    public AbsenceAdapter(List<Absence> absenceList, OnItemClickListener listener, OnDeleteClickListener deleteListener, OnModifyClickListener modifyListener) {
         this.absenceList = absenceList;
         this.listener = listener;
         this.deleteListener = deleteListener;
+        this.modifyListener = modifyListener; // Initialisation du listener
     }
 
     @Override
@@ -42,13 +43,22 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
 
         SpannableString enseignementText = new SpannableString("Enseignant: " + absence.getEnseignement());
         enseignementText.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Enseignant: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        enseignementText.setSpan(new ForegroundColorSpan(Color.BLACK), "Enseignant ".length(), enseignementText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        enseignementText.setSpan(new ForegroundColorSpan(Color.BLACK), "Enseignant: ".length(), enseignementText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvEnseignement.setText(enseignementText);
 
-        SpannableString justificationText = new SpannableString("Justification: " + absence.getStatut());
-        justificationText.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Justification: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        justificationText.setSpan(new ForegroundColorSpan(Color.BLACK), "Justification: ".length(), justificationText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        holder.tvJustification.setText(justificationText);
+        String justificationText = "Justification: " + absence.getStatut();
+        SpannableString spannable = new SpannableString(justificationText);
+
+        spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Justification: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        if ("Justifiée".equals(absence.getStatut())) {
+            spannable.setSpan(new ForegroundColorSpan(Color.BLACK), "Justification: ".length(), spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if ("Non Justifiée".equals(absence.getStatut())) {
+            spannable.setSpan(new ForegroundColorSpan(Color.RED), "Justification: ".length(), spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        holder.tvJustification.setText(spannable);
+
 
         SpannableString dateText = new SpannableString("Date: " + absence.getDate());
         dateText.setSpan(new ForegroundColorSpan(Color.parseColor("#03A9F4")), 0, "Date: ".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -70,6 +80,9 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
 
         // Lorsque l'on clique sur le bouton de suppression, on appelle l'écouteur de suppression
         holder.btnDeleteAbsence.setOnClickListener(v -> deleteListener.onDeleteClick(absence));
+
+        // Lorsque l'on clique sur le bouton de modification, on appelle l'écouteur de modification
+        holder.btnModifyAbsence.setOnClickListener(v -> modifyListener.onModifyClick(absence));
     }
 
     @Override
@@ -79,7 +92,7 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
 
     public static class AbsenceViewHolder extends RecyclerView.ViewHolder {
         TextView tvEnseignement, tvJustification, tvDate, tvHeure, tvClasse;
-        Button btnDeleteAbsence;
+        Button btnDeleteAbsence, btnModifyAbsence;  // Nouveau bouton
 
         public AbsenceViewHolder(View itemView) {
             super(itemView);
@@ -88,7 +101,8 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
             tvDate = itemView.findViewById(R.id.tvDate);
             tvHeure = itemView.findViewById(R.id.tvHeure);
             tvClasse = itemView.findViewById(R.id.tvClasse);
-            btnDeleteAbsence = itemView.findViewById(R.id.btnDeleteAbsence); // Assure-toi que ce bouton existe dans le layout item
+            btnDeleteAbsence = itemView.findViewById(R.id.btnDeleteAbsence);
+            btnModifyAbsence = itemView.findViewById(R.id.btnModifyAbsence); // Initialisation du bouton
         }
     }
 
@@ -98,5 +112,9 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.AbsenceV
 
     public interface OnDeleteClickListener {
         void onDeleteClick(Absence absence);
+    }
+
+    public interface OnModifyClickListener {
+        void onModifyClick(Absence absence); // Interface pour la modification
     }
 }

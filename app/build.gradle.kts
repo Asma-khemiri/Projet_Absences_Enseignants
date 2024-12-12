@@ -5,6 +5,8 @@ plugins {
 dependencies {
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation ("com.google.android.material:material:1.5.0")
+
 
 
     // TODO: Add the dependencies for Firebase products you want to use
@@ -20,6 +22,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-livedata:2.6.1")
+    implementation ("com.google.firebase:firebase-messaging:23.0.0")
+
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 }
@@ -37,6 +41,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
@@ -55,6 +61,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.coordinatorlayout)
+    implementation(libs.material)
+    implementation(libs.lifecycle.viewmodel.android)
     dependencies {
 
         implementation(libs.appcompat)

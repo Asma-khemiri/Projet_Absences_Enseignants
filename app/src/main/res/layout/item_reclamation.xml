@@ -14,38 +14,21 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tvEnseignement"
+            android:id="@+id/tvReclamationDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enseignement"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvJustification"
+            android:id="@+id/tvReclamationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Justification"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/tvReclamationHeure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvHeure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Heure"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvClasse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Classe"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -54,23 +37,14 @@
             android:orientation="horizontal"
             android:gravity="end"
             android:paddingTop="8dp">
-            <Button
-                android:id="@+id/btnModifyAbsence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modifier"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:textColor="@android:color/white"
-                android:layout_marginEnd="8dp" />
 
             <Button
-                android:id="@+id/btnDeleteAbsence"
+                android:id="@+id/btnDeleteReclamation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supprimer"
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:textColor="@android:color/white" />
-
         </LinearLayout>
 
     </LinearLayout>

@@ -29,16 +29,15 @@ public class AddUserFragment extends Fragment {
     private AddUserViewModel addUserViewModel;
 
     public AddUserFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_add_user, container, false);
 
-        // Initialisation des vues
         nameInput = view.findViewById(R.id.nameInput);
         emailInput = view.findViewById(R.id.emailInput);
         passwordInput = view.findViewById(R.id.passwordInput);
@@ -59,7 +58,6 @@ public class AddUserFragment extends Fragment {
         addUserViewModel.getSuccessMessage().observe(getViewLifecycleOwner(), message -> {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            // Naviguer vers la page de connexion ou une autre page après l'ajout de l'utilisateur
         });
 
         addUserViewModel.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
@@ -96,7 +94,6 @@ public class AddUserFragment extends Fragment {
         // Affichage de la ProgressBar
         progressBar.setVisibility(View.VISIBLE);
 
-        // Demander au ViewModel de créer l'utilisateur
         addUserViewModel.addUser(name, email, password, role);
     }
 

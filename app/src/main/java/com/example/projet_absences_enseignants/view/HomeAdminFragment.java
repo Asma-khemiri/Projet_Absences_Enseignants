@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet_absences_enseignants.R;
+import com.example.projet_absences_enseignants.viewmodel.AdminViewModel;
 import com.example.projet_absences_enseignants.viewmodel.AgentViewModel;
 
 public class HomeAdminFragment extends Fragment {
 
-    private AgentViewModel agentViewModel;
-    private CardView cardHome, cardAddAbsence, cardGAbsence, cardCalendar, cardRapport;
+    private AdminViewModel adminViewModel;
+    private CardView  cardAddUser, cardGAbsence, cardCalendar, cardRapport,cardReclamations;
 
     @Nullable
     @Override
@@ -26,24 +27,24 @@ public class HomeAdminFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_admin, container, false);
 
         // Initialiser les CardViews
-        cardHome = view.findViewById(R.id.cardHome);
-        cardAddAbsence = view.findViewById(R.id.cardAddAbsence);
+        cardAddUser = view.findViewById(R.id.cardAddUser);
         cardGAbsence = view.findViewById(R.id.cardGAbsence);
         cardCalendar = view.findViewById(R.id.cardCalendar);
         cardRapport = view.findViewById(R.id.cardRapport);
+        cardReclamations=view.findViewById(R.id.cardReclamations);
 
         // Initialiser le ViewModel
-        agentViewModel = new ViewModelProvider(this).get(AgentViewModel.class);
+        adminViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
 
         // Définir les actions des CardViews
-        cardHome.setOnClickListener(v -> agentViewModel.onNavigateTo("home"));
-        cardAddAbsence.setOnClickListener(v -> agentViewModel.onNavigateTo("add_absence"));
-        cardGAbsence.setOnClickListener(v -> agentViewModel.onNavigateTo("manage_absences"));
-        cardCalendar.setOnClickListener(v -> agentViewModel.onNavigateTo("calendar"));
-        cardRapport.setOnClickListener(v -> agentViewModel.onNavigateTo("report"));
+        cardAddUser.setOnClickListener(v -> adminViewModel.onNavigateTo("add_user"));
+        cardGAbsence.setOnClickListener(v -> adminViewModel.onNavigateTo("manage_absences"));
+        cardCalendar.setOnClickListener(v -> adminViewModel.onNavigateTo("calendar"));
+        cardRapport.setOnClickListener(v -> adminViewModel.onNavigateTo("report"));
+        cardReclamations.setOnClickListener(v->adminViewModel.onNavigateTo("reclamations"));
 
         // Observer les événements de navigation
-        agentViewModel.getNavigationEvent().observe(getViewLifecycleOwner(), this::handleNavigation);
+        adminViewModel.getNavigationEvent().observe(getViewLifecycleOwner(), this::handleNavigation);
 
         return view;
     }
@@ -53,10 +54,8 @@ public class HomeAdminFragment extends Fragment {
         Fragment fragment = null;
 
         switch (destination) {
-            case "home":
-                fragment = new HomeAdminFragment();
-                break;
-            case "add_absence":
+
+            case "add_user":
                 fragment = new AddUserFragment();
                 break;
             case "manage_absences":
@@ -66,7 +65,10 @@ public class HomeAdminFragment extends Fragment {
                 fragment = new EmploiDuTempsFragment();
                 break;
             case "report":
-                fragment = new RapportAbsenceFragment();
+                fragment = new PowerBiFragment();
+                break;
+            case "reclamations":
+                fragment = new ReclamationFragment();
                 break;
         }
 

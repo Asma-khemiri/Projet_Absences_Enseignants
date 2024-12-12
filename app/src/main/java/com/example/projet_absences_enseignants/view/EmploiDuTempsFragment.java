@@ -54,7 +54,6 @@ public class EmploiDuTempsFragment extends Fragment {
         // Enregistrement du contrat pour la sélection de fichier
         getContentLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
             if (result != null) {
-                // Traitez le fichier en arrière-plan pour éviter le blocage
                 processFileInBackground(result);
             } else {
                 Toast.makeText(getContext(), "Erreur lors de la récupération du fichier", Toast.LENGTH_SHORT).show();
@@ -75,17 +74,16 @@ public class EmploiDuTempsFragment extends Fragment {
         }
     }
 
-    // Méthode pour traiter le fichier Excel en arrière-plan
+    // Méthode pour traiter le fichier Excel avec apche api
     private void processFileInBackground(Uri fileUri) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
-                // Traitez le fichier ici, par exemple en lisant les données du fichier Excel
+
                 emploiDuTempsViewModel.loadEmploisDuTempsFromFile(fileUri, getContext());
 
-                // Vous pouvez aussi mettre à jour l'UI après le traitement du fichier
+
                 getActivity().runOnUiThread(() -> {
-                    // Mise à jour UI sur le thread principal
                     Toast.makeText(getContext(), "Fichier traité avec succès", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
@@ -97,29 +95,25 @@ public class EmploiDuTempsFragment extends Fragment {
         });
     }
 
-    // Méthode pour ajouter une ligne dans le TableLayout
+    // Méthode pour ajouter une ligne dans le Table
     private void addRowToTable(EmploiDuTemps emploi) {
-        // Créer une nouvelle ligne de table
         TableRow tableRow = new TableRow(getContext());
         tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-        // Ajouter chaque champ de l'emploi du temps comme un TextView dans la ligne
         tableRow.addView(createTextView(emploi.getJour()));
         tableRow.addView(createTextView(emploi.getMatiere()));
         tableRow.addView(createTextView(emploi.getHeureDebut()));
         tableRow.addView(createTextView(emploi.getHeureFin()));
 
-        // Ajouter la ligne au TableLayout
         tableLayout.addView(tableRow);
     }
 
-    // Méthode pour créer un TextView avec des styles réutilisables
     private TextView createTextView(String text) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         textView.setPadding(8, 8, 8, 8);
         textView.setGravity(Gravity.CENTER);
-        textView.setBackgroundResource(R.drawable.cell_border); // Utiliser un drawable pour les bordures
+        textView.setBackgroundResource(R.drawable.cell_border); //cell_border dans drawable c'est un style pour tab
         return textView;
     }
 }

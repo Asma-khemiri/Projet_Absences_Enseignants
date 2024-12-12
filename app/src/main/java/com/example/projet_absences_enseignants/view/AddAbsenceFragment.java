@@ -33,7 +33,7 @@ public class AddAbsenceFragment extends Fragment {
         etEnseignement = root.findViewById(R.id.etEnseignement);
         spinnerJustification = root.findViewById(R.id.spinnerJustification);
 
-        // Initialiser le Spinner pour la justification
+
         ArrayAdapter<CharSequence> adapterJustification = ArrayAdapter.createFromResource(
                 getContext(),
                 R.array.justification_array, // La liste des justifications définie dans strings.xml
@@ -44,20 +44,20 @@ public class AddAbsenceFragment extends Fragment {
 
         btnSaveAbsence = root.findViewById(R.id.btnSaveAbsence);
         btnSaveAbsence.setOnClickListener(v -> {
-            // Récupérer les valeurs des champs
+
             String date = etDate.getText().toString();
             String heure = etHeure.getText().toString();
             String classe = etClasse.getText().toString();
             String enseignement = etEnseignement.getText().toString();
             String justification = spinnerJustification.getSelectedItem().toString();
 
-            // Vérifier que les champs ne sont pas vides
+
             if (date.isEmpty() || heure.isEmpty() || classe.isEmpty() || enseignement.isEmpty()) {
                 Toast.makeText(getContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Sauvegarder l'absence via le ViewModel
+
             addAbsenceViewModel.saveAbsence(date, heure, classe, enseignement, justification);
         });
 

@@ -8,33 +8,29 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
-    <!-- Main content area -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
             android:id="@+id/toolbar"
-            android:elevation="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
             android:background="@color/blue"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-        <!-- FrameLayout for the main content -->
+            android:titleTextColor="#ffffff"/>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/frame_layout"/>
+            android:id="@+id/frame_layout">
+
+        </FrameLayout>
 
     </LinearLayout>
 
-    <!-- Navigation View (Drawer menu) -->
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -45,33 +41,36 @@
         app:itemIconTint="@color/blue"
         app:itemTextColor="@color/black"/>
 
-    <!-- Coordinator Layout for BottomAppBar and Floating Action Button -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <!-- BottomAppBar -->
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="50dp">
 
-            <!-- BottomNavigationView inside BottomAppBar -->
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:background="@android:color/transparent"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_menu" />
+            android:background="@color/blue"
+            android:layout_height="66dp"
+
+            app:fabCradleMargin="20dp">
+
+
         </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:background="@color/blue"
+            app:layout_anchor="@+id/bottomAppBar"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/bottom_menu" />
+
 
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>

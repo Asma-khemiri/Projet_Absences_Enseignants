@@ -15,6 +15,7 @@ public class AuthViewModel extends AndroidViewModel {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private MutableLiveData<Boolean> isLoggedOut = new MutableLiveData<>(false);  // Ajout de la notification de déconnexion
 
     private MutableLiveData<Boolean> isUserLoggedIn = new MutableLiveData<>();
     private MutableLiveData<User> currentUser = new MutableLiveData<>();
@@ -39,7 +40,7 @@ public class AuthViewModel extends AndroidViewModel {
         }
     }
 
-    public void signUp(String email, String password, String role) {
+    public void AddUserFragment(String email, String password, String role) {
         isLoading.setValue(true);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -107,13 +108,15 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void logout() {
         mAuth.signOut();
-        isUserLoggedIn.setValue(false);
-        currentUser.setValue(null);
-        userRole.setValue(null);
+        isLoggedOut.setValue(true);  // Notifie qu'un utilisateur est déconnecté
     }
+
 
     public LiveData<Boolean> getIsUserLoggedIn() {
         return isUserLoggedIn;
+    }
+    public LiveData<Boolean> getIsLoggedOut() {
+        return isLoggedOut;
     }
 
     public LiveData<User> getCurrentUser() {

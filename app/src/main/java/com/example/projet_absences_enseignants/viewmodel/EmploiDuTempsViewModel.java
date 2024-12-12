@@ -48,7 +48,7 @@ public class EmploiDuTempsViewModel extends ViewModel {
                     String matiere = getStringCellValue(row.getCell(1));
 
                     // Créer un objet EmploiDuTemps et l'ajouter à la liste
-                    EmploiDuTemps et = new EmploiDuTemps(jour, heureDebut, heureFin, matiere);
+                    EmploiDuTemps et = new EmploiDuTemps(jour,matiere, heureDebut, heureFin);
                     emploiDuTemps.add(et);
                 }
             }
@@ -92,10 +92,9 @@ public class EmploiDuTempsViewModel extends ViewModel {
 
     // Convertir un nombre décimal représentant une heure en format "HH:mm"
     private String convertExcelTimeToString(double numericValue) {
-        // Le nombre décimal représentant une fraction de la journée est converti en heures et minutes
         int totalMinutes = (int) (numericValue * 24 * 60); // Conversion en minutes
         int hours = totalMinutes / 60;
         int minutes = totalMinutes % 60;
-        return String.format("%02d:%02d", hours, minutes); // Format de l'heure en "HH:mm"
+        return String.format("%02d:%02d", hours, minutes);
     }
 }

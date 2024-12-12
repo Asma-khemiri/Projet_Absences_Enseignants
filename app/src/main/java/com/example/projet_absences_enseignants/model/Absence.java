@@ -1,6 +1,8 @@
 package com.example.projet_absences_enseignants.model;
 
-public class Absence {
+import java.io.Serializable;
+
+public class Absence implements Serializable {
     private String date;
     private String heure;
     private String classe;
@@ -9,12 +11,9 @@ public class Absence {
     private String agentID;
     private String absenceID;
 
-    // Constructeur sans argument (nécessaire pour Firebase)
     public Absence() {
-        // Ce constructeur est requis pour la désérialisation Firebase
     }
 
-    // Constructeur avec paramètres
     public Absence(String date, String heure, String classe, String enseignement, String statut, String agentID,String absenceID) {
         this.date = date;
         this.heure = heure;
@@ -26,11 +25,9 @@ public class Absence {
 
     }
 
-    // Getters et setters
     public String getDate() {
         return date;
     }
-    // Getters et setters
     public String getAbsenceID() {
         return absenceID;
     }
