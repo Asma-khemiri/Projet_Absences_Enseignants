@@ -8,31 +8,37 @@ public class Absence implements Serializable {
     private String classe;
     private String enseignement;
     private String statut;
-    private String agentID;
-    private String absenceID;
+    private String teacherID;  // Identifiant de l'enseignant
+    private String absenceID;  // Identifiant unique de l'absence
 
     public Absence() {
+        // Constructeur vide requis pour la désérialisation Firebase
     }
 
-    public Absence(String date, String heure, String classe, String enseignement, String statut, String agentID,String absenceID) {
+    // Constructeur complet
+    public Absence(String date, String heure, String classe, String enseignement, String statut, String teacherID, String absenceID) {
         this.date = date;
         this.heure = heure;
         this.classe = classe;
         this.enseignement = enseignement;
         this.statut = statut;
-        this.agentID = agentID;
-        this.absenceID=absenceID;
-
+        this.teacherID = teacherID;
+        this.absenceID = absenceID;
     }
 
+    // Constructeur sans absenceID (Firestore génère cet ID automatiquement)
+    public Absence(String date, String heure, String classe, String enseignement, String statut, String teacherID) {
+        this.date = date;
+        this.heure = heure;
+        this.classe = classe;
+        this.enseignement = enseignement;
+        this.statut = statut;
+        this.teacherID = teacherID;
+    }
+
+    // Getters et setters
     public String getDate() {
         return date;
-    }
-    public String getAbsenceID() {
-        return absenceID;
-    }
-    public void setAbsenceID(String absenceID) {
-        this.absenceID = absenceID;
     }
 
     public void setDate(String date) {
@@ -71,11 +77,19 @@ public class Absence implements Serializable {
         this.statut = statut;
     }
 
-    public String getAgentID() {
-        return agentID;
+    public String getTeacherID() {
+        return teacherID;
     }
 
-    public void setAgentID(String agentID) {
-        this.agentID = agentID;
+    public void setTeacherID(String teacherID) {
+        this.teacherID = teacherID;
+    }
+
+    public String getAbsenceID() {
+        return absenceID;
+    }
+
+    public void setAbsenceID(String absenceID) {
+        this.absenceID = absenceID;
     }
 }

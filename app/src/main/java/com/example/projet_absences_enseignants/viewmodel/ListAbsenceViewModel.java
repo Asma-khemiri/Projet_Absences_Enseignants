@@ -9,13 +9,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.projet_absences_enseignants.model.Absence;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionAbsenceViewModel extends ViewModel {
+public class ListAbsenceViewModel extends ViewModel {
 
     private final MutableLiveData<List<Absence>> absences = new MutableLiveData<>();
     private List<Absence> absenceList = new ArrayList<>();
@@ -28,25 +29,33 @@ public class GestionAbsenceViewModel extends ViewModel {
         return absenceList;
     }
 
-    // Méthode pour récupérer les absences depuis Firestore
+    // Méthode pour récupérer les absences depuis Firestore filtrées par l'ID de l'enseignant connecté
     public void getAbsencesFromFirebase() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String currentUserId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
 
-        db.collection("absences").get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        absenceList.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Absence absence = document.toObject(Absence.class);
-                            absence.setAbsenceID(document.getId());
-                            absenceList.add(absence);
-                            Log.d("Firestore", "Absence: " + absence.getDate());
+        if (currentUserId != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("absences")
+                    .whereEqualTo("enseignantID", currentUserId) // Filtrer par l'ID de l'enseignant
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            absenceList.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Absence absence = document.toObject(Absence.class);
+                                absence.setAbsenceID(document.getId());
+                                absenceList.add(absence);
+                                Log.d("Firestore", "Absence: " + absence.getDate());
+                            }
+                            absences.setValue(absenceList);
+                        } else {
+                            Log.e("Firestore", "Erreur lors de la récupération des données : ", task.getException());
                         }
-                        absences.setValue(absenceList);
-                    } else {
-                        Log.e("Firestore", "Erreur lors de la récupération des données : ", task.getException());
-                    }
-                });
+                    });
+        } else {
+            Log.e("Auth", "Utilisateur non connecté");
+        }
     }
 
     // Méthode pour supprimer une absence de Firestore
@@ -69,6 +78,8 @@ public class GestionAbsenceViewModel extends ViewModel {
                     }
                 });
     }
+
+    // Méthode pour mettre à jour une absence
     public void updateAbsence(Absence absence) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -86,5 +97,4 @@ public class GestionAbsenceViewModel extends ViewModel {
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Erreur lors de la mise à jour de l'absence : ", e));
     }
-
 }

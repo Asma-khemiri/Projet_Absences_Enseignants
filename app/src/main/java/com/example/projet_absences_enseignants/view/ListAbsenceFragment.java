@@ -18,25 +18,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet_absences_enseignants.R;
 import com.example.projet_absences_enseignants.model.Absence;
-import com.example.projet_absences_enseignants.viewmodel.GestionAbsenceViewModel;
+import com.example.projet_absences_enseignants.viewmodel.ListAbsenceViewModel;
 
-public class GestionAbsenceFragment extends Fragment implements AbsenceAdapter.OnItemClickListener, AbsenceAdapter.OnDeleteClickListener, AbsenceAdapter.OnModifyClickListener {
+public class ListAbsenceFragment extends Fragment implements AbsenceAdapter.OnItemClickListener, AbsenceAdapter.OnDeleteClickListener, AbsenceAdapter.OnModifyClickListener {
 
     private RecyclerView recyclerView;
     private AbsenceAdapter absenceAdapter;
-    private GestionAbsenceViewModel viewModel;
+    private ListAbsenceViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_gestion_absence, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_list_absence, container, false);
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Initialisation du ViewModel
-        viewModel = new ViewModelProvider(this).get(GestionAbsenceViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ListAbsenceViewModel.class);
 
         // Initialisation de l'adaptateur avec le listener de modification
         absenceAdapter = new AbsenceAdapter(viewModel.getAbsenceList(), this, this, this);

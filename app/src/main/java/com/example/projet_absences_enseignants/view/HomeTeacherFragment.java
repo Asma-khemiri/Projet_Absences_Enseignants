@@ -56,12 +56,10 @@ public class HomeTeacherFragment extends Fragment {
                 break;
 
             case "manage_absences":
-                fragment = new GestionAbsenceFragment();
+                fragment = new ListAbsenceFragment();
                 break;
 
-            case "notifications": // Nouveau fragment pour les notifications
-                fragment = new GestionAbsenceFragment();
-                break;
+
         }
 
         if (fragment != null) {

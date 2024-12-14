@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.coordinatorlayout)
     implementation(libs.material)
     implementation(libs.lifecycle.viewmodel.android)
+    implementation(libs.firebase.database)
     dependencies {
 
         implementation(libs.appcompat)

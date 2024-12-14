@@ -1,55 +1,71 @@
 package com.example.projet_absences_enseignants.viewmodel;
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.projet_absences_enseignants.model.Absence;
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.lifecycle.ViewModel;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.example.projet_absences_enseignants.model.Absence;
 
-public class AddAbsenceViewModel extends AndroidViewModel {
-    private MutableLiveData<Absence> absenceLiveData;
-    private MutableLiveData<String> toastMessageLiveData;
-    private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public AddAbsenceViewModel(Application application) {
-        super(application);
-        absenceLiveData = new MutableLiveData<>();
-        toastMessageLiveData = new MutableLiveData<>();
-        db = FirebaseFirestore.getInstance(); // Initialiser Firebase Firestore
-        mAuth = FirebaseAuth.getInstance();  // Initialiser Firebase Authentication
+public class AddAbsenceViewModel extends ViewModel {
+
+    private MutableLiveData<String> toastMessage = new MutableLiveData<>();
+    private MutableLiveData<List<Absence>> absenceList = new MutableLiveData<>(); // Liste pour les absences récupérées
+    private FirebaseFirestore db = FirebaseFirestore.getInstance(); // Initialisation de Firestore
+
+    // Getter pour observer les messages Toast
+    public LiveData<String> getToastMessageLiveData() {
+        return toastMessage;
     }
 
-    public MutableLiveData<Absence> getAbsenceLiveData() {
-        return absenceLiveData;
+    // Getter pour observer la liste des absences
+    public LiveData<List<Absence>> getAbsenceList() {
+        return absenceList;
     }
 
-    public MutableLiveData<String> getToastMessageLiveData() {
-        return toastMessageLiveData;
+    // Méthode pour enregistrer une absence dans Firestore
+    public void saveAbsence(String date, String heure, String classe, String justification, String enseignantId, String agentId) {
+        // Création d'un objet pour représenter l'absence
+        Map<String, Object> absenceData = new HashMap<>();
+        absenceData.put("date", date);
+        absenceData.put("heure", heure);
+        absenceData.put("classe", classe);
+        absenceData.put("justification", justification);
+        absenceData.put("enseignantId", enseignantId);
+        absenceData.put("agentId", agentId);
+
+        // Ajout de l'absence dans la collection "absences"
+        db.collection("absences")
+                .add(absenceData)
+                .addOnSuccessListener(documentReference -> {
+                    toastMessage.setValue("Absence enregistrée avec succès !");
+                })
+                .addOnFailureListener(e -> {
+                    toastMessage.setValue("Erreur lors de l'enregistrement : " + e.getMessage());
+                });
     }
 
-    // Sauvegarder l'absence dans Firestore
-    public void saveAbsence(String date, String heure, String classe, String enseignement, String statut) {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            String agentID = user.getUid();
-            Absence absence = new Absence(date, heure, classe, enseignement, statut, agentID,agentID);
-
-            db.collection("absences")
-                    .add(absence)
-                    .addOnSuccessListener(documentReference -> {
-                        absenceLiveData.setValue(absence);
-                        toastMessageLiveData.setValue("Absence enregistrée avec succès");
-                    })
-                    .addOnFailureListener(e -> {
-                        e.printStackTrace();
-                        toastMessageLiveData.setValue("Erreur lors de l'enregistrement de l'absence");
-                    });
-        } else {
-            absenceLiveData.setValue(null);
-            toastMessageLiveData.setValue("Utilisateur non connecté");
-        }
+    // Méthode pour récupérer les absences depuis Firestore
+    public void fetchAbsences() {
+        db.collection("absences")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Absence> absences = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        // Récupérer les données de chaque document et les convertir en objets Absence
+                        Absence absence = document.toObject(Absence.class);
+                        absences.add(absence);
+                    }
+                    absenceList.setValue(absences); // Mettre à jour la liste d'absences
+                })
+                .addOnFailureListener(e -> {
+                    toastMessage.setValue("Erreur lors de la récupération des absences : " + e.getMessage());
+                });
     }
 }

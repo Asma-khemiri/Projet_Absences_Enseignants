@@ -39,17 +39,16 @@
         android:layout_height="wrap_content"
         android:hint="Classe"
         android:inputType="text" />
-
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sauvegarder" />
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/blue"
+        android:text="Se Sauvegarder"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Annuler" />
+
 
 </LinearLayout>
